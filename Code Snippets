@@ -1,1 +1,52 @@
+Dropdown with Data from the Database:
+<div class="btn-group">
+    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Family</button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Option 1</a>
+        <a class="dropdown-item" href="#">Option 2</a>
+        <a class="dropdown-item" href="#">Option 3</a>
+     </div>
+ </div>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Family</button>
+    <div class="dropdown-menu">
+        <?php
+            // server credentials
+            $servername = "localhost";
+            $username = "username";
+            $password = "password";
+            $dbname = "myDB";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Replace with the desired SQL
+            $sql = "SELECT options FROM MyOptions";
+            
+            // get the results
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) 
+            {
+                // output data of each row
+                while($option = $result->fetch_assoc()) 
+                {
+                    // change "name" to the column fo your DB row.  
+                    echo "<a class='dropdown-item' href='#'>".$option["name"]."</a> ";
+
+                    // if you also store a link to your DB, for ex in a column link then use
+                    // echo "<a class='dropdown-item' href='".option["link"]."'>".$option["name"]."</a> ";
+                }
+            } 
+            $conn->close();
+        ?>
+     </div>
+ </div>
+
+
 
