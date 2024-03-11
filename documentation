@@ -21,4 +21,4 @@ Allgemeines Template für Sourcecode-Dokumentation
 
 phpdoc:
 phar: https://docs.phpdoc.org/guide/getting-started/installing.html
-doxygen: https://www.doxygen.nl/manual/install.html ; http://technosophos.com/2012/02/01/documenting-php-doxygen-pros-and-cons.html
+doxygen: https://www.doxygen.nl/download.html ; https://www.doxygen.nl/manual/install.html ; http://technosophos.com/2012/02/01/documenting-php-doxygen-pros-and-cons.html
