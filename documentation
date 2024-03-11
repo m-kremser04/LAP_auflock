@@ -1,0 +1,20 @@
+Allgemeines Template für Sourcecode-Dokumentation
+
+/**
+ * Kurze Beschreibung der Klasse/Funktion
+ *
+ * Detailliertere Beschreibung der Klasse/Funktion, falls notwendig. Diese kann
+ * Informationen über den Zweck, das Verhalten und die Verwendungsweise der
+ * Klasse/Funktion enthalten.
+ *
+ * @param {Typ} paramName Beschreibung des Parameters
+ * @returns {Typ} Beschreibung dessen, was zurückgegeben wird
+ * @throws {ExceptionTyp} Beschreibung unter welchen Bedingungen eine Ausnahme geworfen wird
+ * @example
+ * // Beispiel für die Verwendung
+ * const ergebnis = deineFunktion(parameterWert);
+ *
+ * Autor: Dein Name
+ * Version: 1.0
+ * Datum: Datum der letzten Aktualisierung
+ */
