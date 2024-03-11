@@ -1,0 +1,37 @@
+Xampp: https://sourceforge.net/projects/xampp/ ; https://sourceforge.net/projects/xampp/files/latest/download
+Vs code: https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user
+mysql workbench: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.34-winx64.msi
+node.js: https://nodejs.org/en/download
+php: https://windows.php.net/download#php-8.2 ; setup: https://code.visualstudio.com/docs/languages/php
+!!! https://ekiwi.de/index.php/1040/php-entwicklungsumgebung-mit-xampp-und-visual-studio-code-einrichten/ !!!
+
+XAMPP
+C:\xampp\apache\conf\httpd.conf
+https://httpd.apache.org/docs/2.4/mod/mod_alias.html
+https://publib.boulder.ibm.com/httpserv/manual70/mod/mod_alias.html
+https://write.corbpie.com/apache-alias-map-url-to-a-filesystem-location/
+https://stackoverflow.com/questions/42056452/directory-alias-directory-outside-documentroot (only from alias to /dir)
+
+vscode
+extension: php, SQL Language Server, SQLite Viewer, IntelliCode, Format HTML in PHP, Tabnine AI
+
+mysql > new model > database > forward engineer (delete everything with „Visible“ for ERM)
+AI  _> Autoincrement!!
+
+html table
+https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+
+Datenbank und PHP: 
+https://wiki.selfhtml.org/wiki/PHP/Tutorials/Umstieg_von_der_veralteten_MySQL-API
+https://wiki.selfhtml.org/wiki/PHP/Tutorials/Datenbanken_mit_PHP#PDO_als_Datenbankschnittstelle
+
+ CSS und HTML:
+https://www.w3schools.com/css/css_positioning.asp
+https://www.w3schools.com/html/html5_semantic_elements.asp
+https://www.w3schools.com/html/html_editors.asp
+https://little-boxes.de/lb1/6.1-style-der-aufbau-einer-css-regel.html
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
+
+PHP-Allgemein:
+https://www.w3schools.com/php/php_forms.asp
+https://www.php-kurs.com/einstieg-in-php-programmierung.htm
