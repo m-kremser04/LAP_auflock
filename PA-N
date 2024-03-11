@@ -1,0 +1,114 @@
+Für eine umfassende Einführung in die Entwicklung von Applikationen mit React Native, einschließlich der Verwendung von Datenbanken, dem Programmieren einer Bedienoberfläche, dem Implementieren von Suche und Ausgabe, dem Durchführen von Berechnungen, der Handhabung von Fehlermeldungen, der Dokumentation des Quellcodes und der Verwendung von Frameworks zur Gestaltung, folgt hier ein detaillierter Leitfaden. Dieser Leitfaden umfasst auch Beispielskripte und erklärt jeden Schritt im Prozess.
+
+### 1. React Native Umgebung einrichten
+
+Bevor du startest, stelle sicher, dass deine Entwicklungsumgebung richtig eingerichtet ist. [React Native Dokumentation](https://reactnative.dev/docs/environment-setup) bietet eine umfassende Anleitung für die Einrichtung.
+
+### 2. Ein neues React Native Projekt erstellen
+
+```sh
+npx react-native init MeinProjekt
+cd MeinProjekt
+```
+
+### 3. Datenbankerzeugung und Testeinträge
+
+Für lokale Datenbanken in React Native ist SQLite eine gängige Wahl. Verwende eine Bibliothek wie `react-native-sqlite-storage`.
+
+- **Installation:**
+  
+  ```sh
+  npm install react-native-sqlite-storage
+  ```
+
+- **Datenbankerstellung und Einfügen von Testdaten:**
+
+  ```javascript
+  import SQLite from 'react-native-sqlite-storage';
+
+  SQLite.enablePromise(true);
+  const database_name = "MeineDatenbank.db";
+  
+  async function createDatabase() {
+    try {
+      const db = await SQLite.openDatabase({name: database_name, location: 'default'});
+      await db.executeSql('CREATE TABLE IF NOT EXISTS Benutzer(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, alter INTEGER)');
+      await db.executeSql('INSERT INTO Benutzer (name, alter) VALUES (?, ?)', ['Max Mustermann', 30]);
+      console.log('Datenbank und Testdaten erstellt');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  createDatabase();
+  ```
+
+### 4. Programmierung der Bedienoberfläche
+
+React Native verwendet JSX, um die UI zu beschreiben. Verwenden wir für unser Beispiel eine einfache Oberfläche mit einem Button und Textfeld.
+
+```javascript
+import React, {useState} from 'react';
+import {Button, TextInput, View, Text, StyleSheet} from 'react-native';
+
+const App = () => {
+  const [name, setName] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Gib deinen Namen ein"
+        value={name}
+        onChangeText={setName}
+      />
+      <Button title="Submit" onPress={() => alert(`Hallo, ${name}!`)} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+});
+
+export default App;
+```
+
+### 5. Suche und Ausgabe von Inhalten
+
+Um Inhalte zu suchen und auszugeben, könntest du eine Funktion implementieren, die eine Anfrage an deine Datenbank sendet und die Ergebnisse anzeigt.
+
+### 6. Berechnungen
+
+Implementiere Logik für Berechnungen direkt in deiner Komponente oder in separaten Funktionen, abhängig von der Komplexität.
+
+### 7. Fehlermeldungen
+
+Verwende Zustände (`useState`) und bedingte Renderings in React, um Fehlermeldungen zu verwalten und anzuzeigen.
+
+### 8. Fachgerechte Dokumentation
+
+Verwende Kommentare im Code und Tools wie JSDoc für JavaScript, um deine Funktionen und Komponenten zu dokumentieren.
+
+### 9. Kontrolle und Präsentation der Arbeitsergebnisse
+
+Teste deine Applikation gründlich auf verschiedenen Geräten und präsentiere deine Ergebnisse durch Demos oder Dokumentation.
+
+### 10. Einsatz von Frameworks
+
+Für die Gestaltung von Oberflächen kannst du Bibliotheken wie NativeBase oder React Native Elements nutzen. Installiere sie über npm und importiere die gewünschten Komponenten in deine Applikation.
+
+```sh
+npm install native-base react-native-vector-icons
+```
+
