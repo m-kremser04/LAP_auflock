@@ -1,12 +1,4 @@
 Dropdown with Data from the Database:
-<div class="btn-group">
-    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Family</button>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Option 1</a>
-        <a class="dropdown-item" href="#">Option 2</a>
-        <a class="dropdown-item" href="#">Option 3</a>
-     </div>
- </div>
 
 <div class="btn-group">
     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Family</button>
