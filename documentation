@@ -19,7 +19,60 @@ Allgemeines Template für Sourcecode-Dokumentation
  * Datum: Datum der letzten Aktualisierung
  */
 
+///////////////
+
 phpdoc:
 phar: https://docs.phpdoc.org/guide/getting-started/installing.html
-doxygen: https://www.doxygen.nl/download.html ; https://www.doxygen.nl/manual/install.html ; http://technosophos.com/2012/02/01/documenting-php-doxygen-pros-and-cons.html
+
+///////////////
+
+doxygen:
+https://www.doxygen.nl/download.html ; https://www.doxygen.nl/manual/install.html ; http://technosophos.com/2012/02/01/documenting-php-doxygen-pros-and-cons.html
 https://www.doxygen.nl/download.html
+
+<?php
+/**
+ * Kurze Beschreibung der Klasse.
+ *
+ * Eine längere Beschreibung der Klasse, wenn nötig. Beschreibe hier den Zweck der Klasse
+ * und gebe allgemeine Informationen über die Klasse.
+ *
+ * @class MeinKlasse
+ * @package MeinPaket
+ */
+class MeinKlasse
+{
+    /**
+     * Kurze Beschreibung der Funktion.
+     *
+     * Eine längere Beschreibung der Funktion, falls nötig. Beschreibe hier den Zweck der
+     * Funktion, ihre Funktionsweise und gebe allgemeine Informationen.
+     *
+     * @param Typ $param1 Beschreibung des ersten Parameters.
+     * @param Typ $param2 Beschreibung des zweiten Parameters, falls vorhanden.
+     * @return Typ Beschreibung dessen, was die Funktion zurückgibt.
+     */
+    public function meineFunktion($param1, $param2 = null)
+    {
+        // Funktionskörper
+    }
+}
+?>
+
+Wichtige Doxygen-Tags für PHP:
+@param Typ $name Beschreibung: Beschreibt einen Parameter der Funktion oder Methode.
+@return Typ Beschreibung: Beschreibt den Rückgabewert der Funktion oder Methode.
+@class Klassenname: Markiert eine Klasse für Doxygen.
+@package Paketname: Ordnet die Klasse oder Methode einem spezifischen Paket oder Namespace zu.
+Allgemeine Tipps für die Verwendung von Doxygen in PHP:
+Starte jeden Doxygen-Kommentar mit /**, gefolgt von einem Stern am Anfang jeder Zeile. Dies unterscheidet Doxygen-Kommentare von normalen mehrzeiligen PHP-Kommentaren.
+
+Verwende lesbare und präzise Beschreibungen, um anderen Entwicklern die Verwendung deiner Klassen und Methoden zu erleichtern.
+
+Aktualisiere die Dokumentation regelmäßig, um sicherzustellen, dass sie mit den Änderungen am Code übereinstimmt.
+
+Nutze die @see-Anweisung, um auf andere relevante Teile der Dokumentation oder externe Ressourcen zu verweisen.
+
+Organisiere den Code in Paketen oder Modulen mit @package, um eine bessere Strukturierung und Übersichtlichkeit deiner Dokumentation zu erreichen.
+
+/////////////////////////
