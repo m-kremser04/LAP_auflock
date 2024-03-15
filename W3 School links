@@ -24,3 +24,5 @@ function count(array $items, bool $recursive = false)
 
 PHP exceptions
 https://www.w3schools.com/php/php_exceptions.asp
+
+https://github.com/diegobrego/CommonFilesLAP
