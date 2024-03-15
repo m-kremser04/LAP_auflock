@@ -1,0 +1,113 @@
+### Teil 1: Datenbankkonzeption und -entwicklung
+
+#### Schritt 1: ER-Diagramm erstellen
+1. Wähle ein Tool für das ER-Diagramm (z.B. Lucidchart, Draw.io).
+2. Identifiziere die Entitäten deines Projekts (z.B. Benutzer, Produkte) und deren Attribute.
+3. Bestimme die Beziehungen zwischen diesen Entitäten (1:1, 1:n).
+4. Zeichne das Diagramm, wobei jede Entität eine Tabelle in deiner Datenbank repräsentieren wird.
+
+#### Schritt 2: Datenbank und Tabellen erstellen
+Angenommen, du hast zwei Entitäten, `Lehrer` und `Schüler`, mit einer 1:n-Beziehung.
+
+```sql
+CREATE DATABASE meinProjekt;
+USE meinProjekt;
+
+CREATE TABLE Lehrer (
+    LehrerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Schueler (
+    SchuelerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    LehrerID INT,
+    FOREIGN KEY (LehrerID) REFERENCES Lehrer(LehrerID)
+);
+```
+
+### Teil 2: Entwicklung mit React Native und Datenbankintegration
+
+#### Schritt 1: React Native App erstellen
+1. Installiere Node.js und den Expo-CLI.
+   ```bash
+   npm install -g expo-cli
+   ```
+2. Initialisiere dein Projekt.
+   ```bash
+   expo init MeinAppProjekt
+   cd MeinAppProjekt
+   npm start
+   ```
+
+#### Schritt 2: Node.js Backend-Server erstellen
+1. Installiere Node.js (falls noch nicht geschehen).
+2. Erstelle einen neuen Ordner für dein Backend, navigiere in diesen und initialisiere ein neues Node.js-Projekt.
+   ```bash
+   mkdir meinBackend
+   cd meinBackend
+   npm init -y
+   ```
+3. Installiere Express und den MySQL-Treiber.
+   ```bash
+   npm install express mysql
+   ```
+4. Erstelle eine `server.js` Datei mit dem folgenden Inhalt:
+   ```javascript
+   const express = require('express');
+   const mysql = require('mysql');
+   const app = express();
+   const port = 3000;
+
+   const db = mysql.createConnection({
+       host: 'deinHost',
+       user: 'deinBenutzername',
+       password: 'deinPasswort',
+       database: 'meinProjekt'
+   });
+
+   db.connect();
+
+   app.get('/lehrer', (req, res) => {
+       db.query('SELECT * FROM Lehrer', (err, results) => {
+           if (err) throw err;
+           res.json(results);
+       });
+   });
+
+   app.listen(port, () => {
+       console.log(`Server läuft auf Port ${port}`);
+   });
+   ```
+5. Starte den Server mit `node server.js`.
+
+#### Schritt 3: React Native App mit Backend verbinden
+1. Verwende die Fetch-API oder Axios in deiner React Native App, um Daten vom Backend abzurufen.
+   ```javascript
+   fetch('http://<deinServer>:3000/lehrer')
+       .then(response => response.json())
+       .then(data => console.log(data))
+       .catch(error => console.error(error));
+   ```
+
+### Teil 3: Einsatz von Frameworks und Programmiersprachen
+
+#### Schritt 1: Bootstrap zur Gestaltung der Oberfläche verwenden
+1. Füge Bootstrap zu deinem Projekt hinzu, indem du es über npm installierst oder den CDN-Link in deine HTML-Datei einfügst.
+   ```html
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   ```
+
+#### Schritt 2: JavaScript für clientseitige Logik
+1. Verwende JavaScript, um dynamische Inhalte zu erstellen, mit Benutzereingaben zu interagieren und Daten vom Server zu verarbeiten.
+   ```javascript
+   document.getElementById('meinButton').addEventListener('click', function() {
+       alert('Button wurde geklickt!');
+   });
+   ```
+
+### Dokumentation und Präsentation
+- Dokumentiere deinen Code mit Kommentaren und halte Designentscheidungen, Probleme und Lösungen
+
+ in einem Projekttagebuch fest.
+- Erstelle Präsentationsfolien, die dein Projekt, die verwendeten Technologien und die erzielten Ergebnisse hervorheben.
