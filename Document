@@ -1,0 +1,86 @@
+Deckblatt:
+LAP
+
+Name:	Name 
+Datum:	2022.03.08
+
+----------------------
+Inhaltsverzeichnis:
+1	Praktische Prüfung	2
+2	Mögliche Tools	2
+3	Aufgabenstellungen	3
+3.1	Teil 1 Datenbankdesign	3
+3.1.1	Anforderung	3
+3.1.2	Übung	3
+3.1.3	SQL-Datenbankerzeugung	3
+3.2	Teil 2 Datenbank mit Benutzeroberfläche	3
+3.2.1	Allgemeine Anforderungen	3
+3.2.2	Vorgehensweise	3
+3.3	Oberfläche	3
+3.3.1	Darstellung der Informationen	3
+3.3.2	Navigationsmenu	4
+3.3.3	Suchen nach Modellen	4
+4	Ergebnis	4
+5	Zusätzliche Ressourcen	4
+5.1	Datenbank und PHP	4
+5.2	CSS und HTML	4
+5.3	PHP Allgemein	4
+
+-----------------
+
+1	Praktische Prüfung
+Als Übung für die praktische Prüfung werden 2 Datenbanken erstellt. Entwickeln Sie innerhalb einer LAMPP oder XAMPP Umgebung eine Patientenverwaltung und eine einfache Filmdatenbank. Als Entwicklungsumgebung verwenden Sie Freeware oder Open-Source Programme die selbstständig installiert werden müssen.
+
+2	Mögliche Tools 
+Notebook, Raspberry PI 4 mit der Boxnummer 4, Ethernet Kabel, Maus und Tastatur, HDMI und Energieversorger für Raspberry Pi
+• Visual Studio Code als Entwicklungsumgebung
+• PHP-IntelliSense für VSC
+o Konfiguration von VSC
+• IntelliJ-IDEA
+• MySQL-Workbench
+• Bootstrap
+
+3	Aufgabenstellungen
+Als erstes haben wir, die nicht mit HTML gearbeitet haben, kurz angeschaut wie es funktioniert und haben dann direkt angefangen mit dem HTML Elementen eine Registrierungsformular zu erstellen.
+3.1	Teil 1 Datenbankdesign
+3.1.1	Anforderung
+Es ist zusätzlich ein Übungsprotokoll mit dem ER-Modell, einem Skript für die Daten und dem Datenbanktest zu erstellen (Dauer ca. 2,5 Stunden).
+3.1.2	Übung 
+Erstellen Sie eine Datenbank für eine Patientenverwaltung für eine Arztpraxis.
+3.1.2.1	allgemeine Anforderung
+das ER-Diagramm muss in der Normalform 3 sein
+• tragen Sie in das Modell die Funktionalität der Beziehungen (Kardinalität) ein (1:1, 1:n)
+• fügen Sie bitte für die jeweilige Entität auch passende Attribute hinzu
+3.1.2.2	Anforderungen an das ER-Modell
+Text
+3.1.3	SQL-Datenbankerzeugung
+Text
+Arbeitsansweisung
+
+3.2	Teil 2 Datenbank mit Benutzeroberfläche 
+Text
+3.2.1	Allgemeine Anforderungen 
+Text
+3.2.2	Vorgehensweise 
+Text
+
+3.3	Oberfläche
+3.3.1	Darstellung der Informationen
+Die Oberfläche…
+Bild und code
+3.3.2	Navigationsmenu
+Bild und code
+3.3.3	Suchen nach Modellen
+Bild und code
+
+4	Ergebnis
+text
+
+5	Zusätzliche Ressourcen 
+In diesem Abschnitt finden Sie weitere Links zu Ressourcen und Code-Schnipseln für PHP, HTML und CSS. 
+5.1	Datenbank und PHP
+Links
+5.2	CSS und HTML
+Link
+5.3	PHP Allgemein
+links
