@@ -7,6 +7,7 @@ php: https://windows.php.net/download#php-8.2 ; setup: https://code.visualstudio
 
 XAMPP
 C:\xampp\apache\conf\httpd.conf
+C:\xampp\htdocs
 https://httpd.apache.org/docs/2.4/mod/mod_alias.html
 https://publib.boulder.ibm.com/httpserv/manual70/mod/mod_alias.html
 https://write.corbpie.com/apache-alias-map-url-to-a-filesystem-location/
