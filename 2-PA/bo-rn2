@@ -1,0 +1,86 @@
+### Teil 1: Datenbankkonzeption und -entwicklung
+
+**Schritt 1: Konzeption eines ER-Diagramms in der 3. Normalform**
+
+1. **Bestimmen der Entitäten**: Identifizieren Sie die Schlüsselkomponenten Ihres Systems. Für ein einfaches Beispiel könnten dies `Benutzer`, `Beiträge` und `Kommentare` sein.
+
+2. **Definieren der Beziehungen**: Bestimmen Sie die Art der Beziehungen zwischen Ihren Entitäten. Zum Beispiel hat ein `Benutzer` viele `Beiträge` (1:n), und ein `Beitrag` hat viele `Kommentare` (1:n).
+
+3. **Normalisierung**: Überprüfen Sie Ihre Entwürfe auf redundante Daten und stellen Sie sicher, dass jede Entität in der 3. Normalform ist. Das bedeutet, dass sie in der 1. Normalform (1NF) sein muss (atomare Werte, keine wiederholenden Gruppen), in der 2. Normalform (2NF) (alle Nicht-Schlüsselattribute voll funktional abhängig vom Primärschlüssel), und in der 3. Normalform (3NF) (keine transitiven Abhängigkeiten).
+
+**Schritt 2: SQL-Datenbankerzeugung**
+
+1. **Installation von XAMPP und MySQL Workbench**: Stellen Sie sicher, dass XAMPP läuft und MySQL Workbench installiert ist.
+
+2. **Erstellen der Datenbank**:
+```sql
+CREATE DATABASE meinprojekt;
+USE meinprojekt;
+```
+
+3. **Erstellen der Tabellen**:
+```sql
+CREATE TABLE Benutzer (
+    BenutzerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE Beitraege (
+    BeitragID INT AUTO_INCREMENT PRIMARY KEY,
+    BenutzerID INT,
+    Titel VARCHAR(255),
+    Inhalt TEXT,
+    Erstellungsdatum DATETIME,
+    FOREIGN KEY (BenutzerID) REFERENCES Benutzer(BenutzerID)
+);
+
+CREATE TABLE Kommentare (
+    KommentarID INT AUTO_INCREMENT PRIMARY KEY,
+    BeitragID INT,
+    BenutzerID INT,
+    KommentarText TEXT,
+    Erstellungsdatum DATETIME,
+    FOREIGN KEY (BeitragID) REFERENCES Beitraege(BeitragID),
+    FOREIGN KEY (BenutzerID) REFERENCES Benutzer(BenutzerID)
+);
+```
+
+4. **Testeinträge hinzufügen**:
+```sql
+INSERT INTO Benutzer (Name, Email) VALUES ('Max Mustermann', 'max@example.com');
+INSERT INTO Beitraege (BenutzerID, Titel, Inhalt, Erstellungsdatum) VALUES (1, 'Mein erster Beitrag', 'Das ist der Inhalt meines ersten Beitrags.', NOW());
+```
+
+### Teil 2: Entwicklung einer Applikation mit React Native
+
+**Schritt 3: Einrichtung der React Native Umgebung**
+
+1. **Installieren von Node.js**: Stellen Sie sicher, dass Node.js auf Ihrem System installiert ist.
+
+2. **Installieren des React Native CLI**:
+```bash
+npm install -g react-native-cli
+```
+
+3. **Erstellen eines neuen React Native Projekts**:
+```bash
+react-native init MeinProjekt
+```
+
+**Schritt 4: Programmieren der Bedienoberfläche**
+
+1. **Erstellen von Komponenten**: Nutzen Sie React Native Komponenten, um Ihre Benutzeroberfläche zu gestalten. Verwenden Sie ggf. Frameworks wie Bootstrap für React Native, um den Prozess zu vereinfachen.
+
+2. **Verbinden mit der Datenbank**: Implementieren Sie die Logik, um Daten von Ihrer SQL-Datenbank abzufragen, indem Sie eine API-Schnittstelle mit Express.js auf Ihrem Server einrichten.
+
+**Schritt 5: Implementieren der Logik für Suche, Ausgabe und Berechnungen**
+
+1. **Suchfunktion**: Entwickeln Sie Funktionen, die es Benutzern ermöglichen, Inhalte zu suchen. Dies kann eine einfache Textsuche über Ihre Beiträge sein.
+
+2. **Ausgabe von Inhalten**: Zeigen Sie Inhalte basierend auf Benutzeraktionen an, wie z.B. das Anklicken eines Beitrags, um dessen Kommentare zu sehen.
+
+
+
+3. **Berechnungen und Fehlermeldungen**: Implementieren Sie jegliche erforderliche Logik für Berechnungen innerhalb Ihrer App und stellen Sie sicher, dass Fehlermeldungen dem Benutzer klar und hilfreich präsentiert werden.
+
