@@ -202,6 +202,93 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'IhrBenutzername
+  password: 'IhrPasswort',
+  database: 'meinprojekt'
+});
+
+db.connect((err) => {
+  if (err) throw err;
+  console.log('MySQL verbunden');
+});
+
+app.use(express.json());
+
+app.get('/beitraege', (req, res) => {
+  db.query('SELECT * FROM Beitraege', (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+});
+
+app.get('/beitrag/:id', (req, res) => {
+  let sql = 'SELECT * FROM Beitraege WHERE BeitragID = ?';
+  db.query(sql, [req.params.id], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server läuft auf Port ${port}`);
+});
+```
+
+In diesem Beispiel haben Sie zwei Endpunkte: einen, um alle Beiträge zu holen (`/beitraege`), und einen weiteren, um einen spezifischen Beitrag anhand seiner ID zu holen (`/beitrag/:id`). Sie müssen diesen Server starten, indem Sie `node server.js` in Ihrem Terminal ausführen, und sicherstellen, dass Ihre Datenbank läuft.
+
+### Verbinden der React Native App mit der API
+
+Um Ihre React Native App mit der eben erstellten API zu verbinden, müssen Sie HTTP-Anfragen an die Endpunkte senden, die Sie definiert haben. Dies kann mit Fetch API erfolgen, die in React Native verfügbar ist.
+
+#### Abrufen von Beiträgen im HomeScreen
+
+Passen Sie den `useEffect` Hook in `HomeScreen.js` an, um Daten von Ihrem Server zu holen:
+
+```jsx
+useEffect(() => {
+  fetch('http://<Ihre-Server-IP>:3000/beitraege')
+    .then(response => response.json())
+    .then(data => setBeitraege(data))
+    .catch(error => console.error('Fehler:', error));
+}, []);
+```
+
+#### Abrufen von Details in DetailsScreen
+
+Ändern Sie den `DetailsScreen`, um Details von einem Beitrag zu holen:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+
+function DetailsScreen({ route }) {
+  const { beitragId } = route.params;
+  const [beitrag, setBeitrag] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://<Ihre-Server-IP>:3000/beitrag/${beitragId}`)
+      .then(response => response.json())
+      .then(data => setBeitrag(data[0])) // Angenommen, das Ergebnis ist ein Array mit einem Element
+      .catch(error => console.error('Fehler:', error));
+  }, [beitragId]);
+
+  return (
+    <View>
+      {beitrag ? (
+        <>
+          <Text>Titel: {beitrag.Titel}</Text>
+          <Text>Inhalt: {beitrag.Inhalt}</Text>
+        </>
+      ) : (
+        <Text>Lädt...</Text>
+      )}
+    </View>
+  );
+}
+
+export default DetailsScreen;
+```
+
+Ersetzen Sie `<Ihre-Server-IP>` durch die IP-Adresse Ihres Servers, auf dem der Express-Server läuft. Wenn Sie dies lokal testen, könnte es `localhost` sein, aber für Geräte im selben Netzwerk verwenden Sie die IP-Adresse Ihres Computers im Netzwerk.
 
 ##########
 
