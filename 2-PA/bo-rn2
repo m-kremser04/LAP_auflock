@@ -70,9 +70,143 @@ react-native init MeinProjekt
 
 **Schritt 4: Programmieren der Bedienoberfläche**
 
-1. **Erstellen von Komponenten**: Nutzen Sie React Native Komponenten, um Ihre Benutzeroberfläche zu gestalten. Verwenden Sie ggf. Frameworks wie Bootstrap für React Native, um den Prozess zu vereinfachen.
 
-2. **Verbinden mit der Datenbank**: Implementieren Sie die Logik, um Daten von Ihrer SQL-Datenbank abzufragen, indem Sie eine API-Schnittstelle mit Express.js auf Ihrem Server einrichten.
+
+##########
+
+!!!!### Teil 2: Entwicklung einer Applikation mit React Native (Fortsetzung)
+
+**Schritt 4: Programmieren der Bedienoberfläche**
+
+Nachdem Sie Ihr React Native Projekt initiiert haben, fangen wir an, die Bedienoberfläche zu entwickeln.
+
+#### Grundgerüst der Anwendung
+
+1. **Navigation**: Installieren Sie `react-navigation` für die Navigation zwischen verschiedenen Bildschirmen.
+
+```bash
+npm install @react-navigation/native @react-navigation/stack react-native-screens react-native-safe-area-context
+```
+
+2. **Einrichten eines Navigators**:
+Erstellen Sie einen neuen Ordner namens `navigation` und darin eine Datei `StackNavigator.js`. Hier definieren Sie die Navigation zwischen Ihren Screens.
+
+```jsx
+// In StackNavigator.js
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from '../screens/HomeScreen';
+import DetailsScreen from '../screens/DetailsScreen';
+
+const Stack = createStackNavigator();
+
+function StackNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+    </Stack.Navigator>
+  );
+}
+
+export default StackNavigator;
+```
+
+#### Implementierung der Bedienoberfläche
+
+3. **Erstellen des HomeScreen**:
+Im Ordner `screens`, erstellen Sie eine Datei `HomeScreen.js`. Dieser Screen kann eine Liste von Beiträgen anzeigen.
+
+```jsx
+// In HomeScreen.js
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+
+function HomeScreen({ navigation }) {
+  const [beitraege, setBeitraege] = useState([]);
+
+  // Hier würden Sie normalerweise Daten von Ihrer API abrufen
+  useEffect(() => {
+    // Angenommen, dies ist Ihre "gefakte" Datenquelle
+    const gefakteDaten = [
+      { id: '1', titel: 'Erster Beitrag', inhalt: 'Das ist der Inhalt des ersten Beitrags' },
+      // Fügen Sie hier weitere Beiträge hinzu
+    ];
+    setBeitraege(gefakteDaten);
+  }, []);
+
+  return (
+    <View>
+      <FlatList
+        data={beitraege}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate('Details', { beitragId: item.id })}>
+            <Text>{item.titel}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+}
+
+export default HomeScreen;
+```
+
+4. **DetailsScreen**:
+Erstellen Sie eine Datei `DetailsScreen.js` im selben Ordner. Dieser Screen zeigt Details zu einem Beitrag an.
+
+```jsx
+// In DetailsScreen.js
+import React from 'react';
+import { View, Text } from 'react-native';
+
+function DetailsScreen({ route }) {
+  const { beitragId } = route.params;
+  // Hier würden Sie Daten basierend auf beitragId abrufen
+
+  return (
+    <View>
+      <Text>Details zum Beitrag</Text>
+      {/* Hier würden Sie die Details des Beitrags anzeigen */}
+      <Text>Beitrag ID: {beitragId}</Text>
+    </View>
+  );
+}
+
+export default DetailsScreen;
+```
+
+#### Verbindung zur Datenbank
+
+Um Daten von Ihrer Datenbank abzufragen, benötigen Sie eine API, die die Kommunikation zwischen Ihrer React Native App und Ihrem MySQL-Server ermöglicht. Eine übliche Praxis ist die Verwendung von Express.js, um eine einfache REST-API zu erstellen.
+
+1. **Einrichten eines einfachen Express-Servers**:
+Erstellen Sie einen neuen Ordner für Ihren Server, initialisieren Sie ein neues Node.js-Projekt mit `npm init` und installieren Sie Express.js sowie `mysql` für die Datenbankverbindung.
+
+```bash
+npm install express mysql
+```
+
+2. **Erstellen einer einfachen API**:
+Im Serverprojekt, erstellen Sie eine Datei `server.js`. Hier definieren Sie Ihre API-Endpunkte.
+
+```js
+// server.js
+const express = require('express');
+const mysql = require('mysql');
+const app = express();
+const port = 3000;
+
+// Konfigurieren Sie hier Ihre MySQL-Datenbankverbindung
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'IhrBenutzername
+
+##########
+
+
+
 
 **Schritt 5: Implementieren der Logik für Suche, Ausgabe und Berechnungen**
 
