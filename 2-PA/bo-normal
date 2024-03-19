@@ -1,0 +1,170 @@
+**kein** React Native:
+
+### 1. Konzeption der Datenbank
+
+**ER-Diagramm**: Du müsstest ein Entity-Relationship-Diagramm (ER-Diagramm) erstellen, das die Struktur deiner Datenbank visualisiert. Dieses Beispiel ist vereinfacht und soll dir helfen, die Beziehungen zu verstehen.
+
+- **Benutzer**
+  - ID (Primärschlüssel)
+  - Name
+  - E-Mail
+- **Beiträge**
+  - ID (Primärschlüssel)
+  - Titel
+  - Inhalt
+  - Benutzer_ID (Fremdschlüssel zu Benutzer)
+- **Kommentare**
+  - ID (Primärschlüssel)
+  - Inhalt
+  - Benutzer_ID (Fremdschlüssel zu Benutzer)
+  - Beitrag_ID (Fremdschlüssel zu Beiträge)
+
+Die Beziehungen sind wie folgt:
+- Ein **Benutzer** kann mehrere **Beiträge** verfassen (1:n).
+- Ein **Beitrag** kann mehrere **Kommentare** haben (1:n).
+- Ein **Benutzer** kann mehrere **Kommentare** verfassen (1:n).
+
+### 2. SQL-Datenbankerzeugung (MySQL)
+
+Nachdem du deine Datenbank konzipiert hast, erstellst du die entsprechenden SQL-Befehle, um die Datenbank und Tabellen zu erzeugen.
+
+```sql
+CREATE DATABASE blogDB;
+
+USE blogDB;
+
+CREATE TABLE Benutzer (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(255),
+  Email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE Beiträge (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Titel VARCHAR(255),
+  Inhalt TEXT,
+  Benutzer_ID INT,
+  FOREIGN KEY (Benutzer_ID) REFERENCES Benutzer(ID)
+);
+
+CREATE TABLE Kommentare (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Inhalt TEXT,
+  Benutzer_ID INT,
+  Beitrag_ID INT,
+  FOREIGN KEY (Benutzer_ID) REFERENCES Benutzer(ID),
+  FOREIGN KEY (Beitrag_ID) REFERENCES Beiträge(ID)
+);
+```
+
+### 3. Entwicklung einer PHP-Anwendung
+
+**XAMPP konfigurieren**: Installiere XAMPP und starte den Apache-Server sowie MySQL, um deine lokale Entwicklungsumgebung einzurichten.
+
+**Datenbankverbindung**:
+Erstelle eine PHP-Datei für die Datenbankverbindung (`db_connect.php`).
+
+```php
+<?php
+$servername = "localhost";
+$username = "root"; // Standard-Benutzername in XAMPP
+$password = ""; // Standard-Passwort in XAMPP
+$dbname = "blogDB";
+
+// Erstellen der Verbindung
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Überprüfen der Verbindung
+if ($conn->connect_error) {
+  die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+}
+?>
+```
+
+**Einfache Bedienoberfläche für Beiträge**:
+Erstelle eine einfache HTML-Seite mit einem PHP-Skript, das Beiträge aus deiner Datenbank anzeigt (`index.php`).
+
+```php
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Beiträge</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Blog Beiträge</h2>
+    <?php
+    include 'db_connect.php'; // Verbindung zur Datenbank herstellen
+
+    $sql = "SELECT * FROM Beiträge";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<div class='card'><div class='card-body'>";
+            echo "<h5 class='card-title'>" . $row["Titel"]. "</h5>";
+            echo "<p class='card-text'>" . $row["Inhalt"]. "</p>";
+            echo "</div></div><br>";
+        }
+    } else {
+        echo "0 Ergebnisse";
+    }
+    $conn->close();
+    ?>
+</div>
+</body>
+</html>
+```
+
+Diese Datei zeigt eine Liste aller Beiträge an, die in der Datenbank gespeichert sind. Für die Gestaltung verwenden wir Bootstrap, ein Framework, das dir hilft, eine ansprechende Benutzeroberfläche mit minimalem Aufwand zu erstellen.
+
+### 4. Gestaltung der Oberflächen und Einsatz von Frameworks
+
+Du hast bereits gesehen, wie Bootstrap in das obige Beispiel integriert wurde. Um deine Anwendung weiter zu verbessern, kannst du Bootstrap-Komponenten wie Formulare, Schaltflächen und Karten nutzen, um Benutzerinteraktionen wie das Hinzufügen oder Kommentieren von Beiträgen zu ermöglichen.
+
+**Ein Formular zum Hinzufügen von Beiträgen** könnte so aussehen:
+
+```html
+<div class="container">
+    <h2>Beitrag hinzufügen</h2>
+    <form action="add_post.php" method="post">
+        <div class="form-group">
+            <label for="titel">Titel:</label>
+            <input type="text" class="form-control" id="titel" name="titel">
+        </div>
+        <div class="form-group">
+            <label for="inhalt">Inhalt:</label>
+            <textarea class="form-control" id="inhalt" name="inhalt"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Senden</button>
+    </form>
+</div>
+```
+
+Und die zugehörige `add_post.php` könnte so aussehen:
+
+```php
+<?php
+include 'db_connect.php'; // Stelle die Verbindung zur Datenbank her
+
+$titel = $_POST['titel'];
+$inhalt = $_POST['inhalt'];
+
+// Einfügen des neuen Beitrags in die Datenbank
+$sql = "INSERT INTO Beiträge (Titel, Inhalt) VALUES (?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ss", $titel, $inhalt);
+
+if ($stmt->execute()) {
+    echo "Neuer Beitrag erfolgreich hinzugefügt.";
+} else {
+    echo "Fehler: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>
+```
+
+Mit diesem Ansatz kannst du eine vollständige CRUD (Create, Read, Update, Delete) Anwendung erstellen, indem du entsprechende PHP-Skripte für jede Aktion hinzufügst. Denke daran, die Benutzereingaben immer zu validieren und zu bereinigen, um SQL-Injection und andere Sicherheitsprobleme zu vermeiden.
