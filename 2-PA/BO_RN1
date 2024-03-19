@@ -1,0 +1,140 @@
+Beispiel eine einfache React Native App, die Daten von einem Backend-Server abruft, Suchfunktionen bietet und einfache Berechnungen durchführt:
+
+
+
+
+### Schritt 1: Erstellen der React Native App
+
+Angenommen, du hast bereits eine React Native App mit Expo initialisiert, wie in den vorherigen Schritten beschrieben:
+
+###[Installiere Node.js: Besuche die offizielle Node.js-Website und lade die Version für dein Betriebssystem herunter. Die Installation von Node.js umfasst auch npm (node package manager), den wir für die Installation von Expo benötigen.
+
+Installiere Expo CLI: Öffne dein Terminal oder deine Kommandozeile und führe den folgenden Befehl aus:
+
+Copy code
+npm install -g expo-cli
+Dieser Befehl installiert das Expo-Command-Line-Interface global auf deinem Computer.
+
+Initialisiere ein neues Expo-Projekt: Sobald die Expo CLI installiert ist, kannst du dein Projekt initialisieren. Ersetze MeineApp mit dem Namen deiner App.
+
+csharp
+Copy code
+expo init MeineApp
+Folge den Anweisungen im Terminal. Expo wird dich fragen, welches Template du verwenden möchtest. Für dieses Beispiel kannst du das "blank" Template wählen.
+
+Navigiere in dein Projektverzeichnis und starte die Entwicklungsserver:
+
+bash
+Copy code
+cd MeineApp
+expo start
+Ein QR-Code wird in deinem Terminal angezeigt. Wenn du die Expo-App auf deinem Smartphone installiert hast, kannst du diesen QR-Code scannen, um deine App direkt auf deinem Gerät zu öffnen. Alternativ kannst du auch einen Android- oder iOS-Emulator auf deinem Computer verwenden.
+
+Schritt 2: Bearbeiten deiner App
+Öffne den Ordner deines Projekts in einem Texteditor oder einer IDE deiner Wahl (z.B. Visual Studio Code).
+
+Finde die App.js Datei: Dies ist die Hauptdatei deiner App, in der du deine UI und Logik implementieren wirst.
+
+Implementiere die Such- und Berechnungsfunktionen: Du kannst den im vorherigen Schritt bereitgestellten Beispielcode verwenden und ihn in App.js einfügen oder deine eigene Logik basierend auf diesem Beispiel entwickeln.]###
+
+
+
+
+
+### Schritt 2: Installieren notwendiger Pakete
+
+Zur Verwaltung von Formulardaten und für HTTP-Requests installiere `axios`:
+
+```bash
+npm install axios
+```
+
+### Schritt 3: Erstellen einer Such- und Anzeigekomponente
+
+Erstelle eine neue Komponente, `SearchAndDisplay.js`, in deinem Projekt:
+
+```javascript
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, Text, FlatList } from 'react-native';
+import axios from 'axios';
+
+const SearchAndDisplay = () => {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [items, setItems] = useState([]);
+    const [filteredItems, setFilteredItems] = useState([]);
+
+    useEffect(() => {
+        // Lade Daten beim Initialisieren der Komponente
+        axios.get('http://<deinServer>:3000/items')
+            .then(response => {
+                setItems(response.data);
+                setFilteredItems(response.data); // Initial, alle Items anzeigen
+            })
+            .catch(error => console.log(error));
+    }, []);
+
+    const handleSearch = () => {
+        const filtered = items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        setFilteredItems(filtered);
+    };
+
+    return (
+        <View>
+            <TextInput
+                placeholder="Suche..."
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+            />
+            <Button title="Suchen" onPress={handleSearch} />
+            <FlatList
+                data={filteredItems}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => <Text>{item.name} - {item.price}€</Text>}
+            />
+        </View>
+    );
+};
+
+export default SearchAndDisplay;
+```
+
+Diese Komponente lädt Daten von einem Server, ermöglicht das Suchen in diesen Daten und zeigt die gefilterten Ergebnisse an. Stelle sicher, dass der Server entsprechend eingerichtet ist und eine Route `/items` bietet, die eine Liste von Objekten zurückgibt.
+
+### Schritt 4: Einfügen der Komponente in die App
+
+In deiner `App.js` oder Hauptkomponente, importiere und verwende die `SearchAndDisplay` Komponente:
+
+```javascript
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import SearchAndDisplay from './SearchAndDisplay';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <SearchAndDisplay />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 50,
+  },
+});
+```
+
+### Schritt 5: Berechnung implementieren
+
+Füge eine Funktion zur Berechnung der Summe der Preise der gefilterten Artikel hinzu. Dies kann direkt in der `SearchAndDisplay`-Komponente erfolgen, indem du einen Button hinzufügst und eine entsprechende Funktion implementierst:
+
+```javascript
+const calculateTotal = () => {
+    const total = filteredItems.reduce((acc, item) => acc + item.price, 0);
+    alert(`Gesamtpreis: ${total}€`);
+};
+
+// Füge diesen Button in die Return-Anweisung der Komponente ein
+<Button title="Gesamtpreis berechnen" onPress={calculateTotal} />
+```
