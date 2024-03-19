@@ -1,0 +1,67 @@
+Ohne eine React Native App zu verwenden:
+
+### Schritt 1: Grundgerüst der HTML-Seite
+
+Erstelle eine HTML-Datei (z.B. `index.html`), die das Grundgerüst deiner Anwendung enthält. Dieses Beispiel beinhaltet ein Eingabefeld für die Suche, einen Bereich zur Anzeige der Ergebnisse und ein einfaches Formular für Berechnungen.
+
+```html
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Anwendung</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Suche</h2>
+        <input type="text" id="searchInput" placeholder="Suchbegriff...">
+        <button onclick="search()">Suchen</button>
+
+        <h2>Ergebnisse</h2>
+        <div id="results"></div>
+
+        <h2>Berechnung</h2>
+        <input type="number" id="value1" placeholder="Wert 1">
+        <input type="number" id="value2" placeholder="Wert 2">
+        <button onclick="calculate()">Berechnen</button>
+        <p>Ergebnis: <span id="calcResult"></span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+### Schritt 2: CSS für die Gestaltung
+
+(Optional) Füge CSS hinzu, um das Layout und die Gestaltung deiner Seite zu verbessern. Du kannst eine separate CSS-Datei erstellen (z.B. `styles.css`) und diese in deiner HTML-Datei einbinden.
+
+```css
+/* styles.css */
+.container {
+    margin-top: 20px;
+}
+```
+
+### Schritt 3: JavaScript für Interaktivität
+
+Erstelle eine JavaScript-Datei (z.B. `script.js`), um die Logik für die Suche, Anzeige von Ergebnissen und Berechnungen zu implementieren. Das folgende Beispiel zeigt, wie du Funktionen für die Suche und Berechnung definieren kannst.
+
+```javascript
+// script.js
+
+function search() {
+    const searchInput = document.getElementById('searchInput').value;
+    // Simuliere eine Suche, indem du einfach den eingegebenen Text in den Ergebnisbereich einfügst
+    document.getElementById('results').innerText = 'Ergebnisse für: ' + searchInput;
+}
+
+function calculate() {
+    const value1 = parseInt(document.getElementById('value1').value, 10);
+    const value2 = parseInt(document.getElementById('value2').value, 10);
+    const result = value1 + value2; // Beispiel: eine einfache Addition
+    document.getElementById('calcResult').innerText = result;
+}
+```
